@@ -36,21 +36,22 @@ export async function createTodo(todo) {
 
 export async function getTodos() {
     // > Part B: Get all todos for this user from supabase
-    return await client.from('todos').select('*').order(created_at');
+    return await client.from('todos').select('*').order('created_at');
 }
 
 export async function completeTodo(id) {
     // > Part C: call update (set complete to true) for the todo that
     // matches the correct id. Returns a single record:
-    .from('todos')
-    .update({ complete: true })
-    .eq('id', id)
-    .single();
+    return await client
+        .from('todos')
+        .update({ complete: true })
+        .eq('id', id)
+        .single();
 }
 
 export async function deleteAllTodos() {
     const user = getUser();
-    
+
     return await client.from('todos').delete().eq('user_id', user.id);
 
     // > Part D: delete all todos for this user in supabase:

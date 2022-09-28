@@ -2,13 +2,13 @@
 // this will check if we have a user and set signout link if it exists
 import './auth/user.js';
 import {
-     createTodo,
-     getTodos,
-     completeTodos,
-     deleteAllTodos
-    } from './fetch-utils.js';
+    createTodo,
+    getTodo,
+    completeTodo,
+    deleteAllTodos,
+} from './fetch-utils.js';
 // Part A: import create todo
-    
+
 // Part B: import get todos
 // Part C: import complete todos
 // Part D: import delete all function
@@ -29,7 +29,7 @@ let error = null;
 
 window.addEventListener('load', async () => {
     // > Part B: Add a click event listener for the todoEl
-    const response = await get Todos();
+    const response = await getTodo();
     error = response.error;
     todos = response.data;
 
@@ -55,7 +55,7 @@ addTodoForm.addEventListener('submit', async (e) => {
     };
 
     // > Part A: Call the function to create a todo, passing in "newTodo":
-    const response = await nullcreateTodo(newTodo); // ???
+    const response = await createTodo(newTodo); // ???
     error = response.error;
     const todo = response.data;
 
@@ -77,7 +77,7 @@ removeButton.addEventListener('click', async () => {
         displayError();
     } else {
         // > Part D: reset todos state to an empty array:
-            todos = {};
+        todos = {};
         displayTodos();
     }
 });
@@ -98,6 +98,20 @@ function displayTodos() {
     for (const todo of todos) {
         const todoEl = renderTodo(todo);
         todoList.append(todoEl);
+
+        todoEl.addEventListener('click', async () => {
+            const response = await completeTodo(todo.id);
+            error = response.error;
+            const updatedTodo = response.data;
+
+            if (error) {
+                displayError();
+            } else {
+                const index = todos.indexOf(todo);
+                todos[index] = updatedTodo;
+                displayTodos();
+            }
+        });
 
         // > Part C: Add a click event listener for the todoEl
         //      - call the async supabase function to delete all todos

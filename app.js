@@ -3,7 +3,7 @@
 import './auth/user.js';
 import {
     createTodo,
-    getTodo,
+    getTodos,
     completeTodo,
     deleteAllTodos,
 } from './fetch-utils.js';
@@ -29,7 +29,7 @@ let error = null;
 
 window.addEventListener('load', async () => {
     // > Part B: Add a click event listener for the todoEl
-    const response = await getTodo();
+    const response = await getTodos();
     error = response.error;
     todos = response.data;
 

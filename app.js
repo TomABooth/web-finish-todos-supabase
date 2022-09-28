@@ -77,7 +77,7 @@ removeButton.addEventListener('click', async () => {
         displayError();
     } else {
         // > Part D: reset todos state to an empty array:
-        todos = {};
+        todos = [];
         displayTodos();
     }
 });

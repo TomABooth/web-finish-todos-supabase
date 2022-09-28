@@ -7,6 +7,7 @@ import { createTodo } from './fetch-utils.js';
 // Part B: import get todos
     getTodos,
 // Part C: import complete todos
+    completeTodos,
 // Part D: import delete all function
 import { renderTodo } from './render-utils.js';
 

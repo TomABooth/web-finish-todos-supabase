@@ -50,6 +50,8 @@ export async function completeTodo(id) {
 
 export async function deleteAllTodos() {
     const user = getUser();
+    
+    return await client.from('todos').delete().eq('user_id', user.id);
 
     // > Part D: delete all todos for this user in supabase:
 

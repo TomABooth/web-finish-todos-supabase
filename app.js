@@ -5,6 +5,7 @@ import { createTodo } from './fetch-utils.js';
 // Part A: import create todo
     createTodo,
 // Part B: import get todos
+    getTodos,
 // Part C: import complete todos
 // Part D: import delete all function
 import { renderTodo } from './render-utils.js';
@@ -23,6 +24,17 @@ let error = null;
 
 window.addEventListener('load', async () => {
     // > Part B: Add a click event listener for the todoEl
+    const response = await get Todos();
+    error = response.error;
+    todos = response.data;
+
+    if (error) {
+        displayError();
+    }
+
+    if (todos) {
+        displayTodos();
+    }
     //      - call the async supabase function to delete all todos
     //        and get the response
     //      - set the todos and error state from the response

@@ -1,6 +1,6 @@
-const SUPABASE_URL = 'https://nwxkvnsiwauieanvbiri.supabase.co';
+const SUPABASE_URL = 'https://qzjxjzoitkpoyrvazfle.supabase.co';
 const SUPABASE_KEY =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYzNzAwMzQzNCwiZXhwIjoxOTUyNTc5NDM0fQ.8XIsU0FANdaNeQnT-DojpTL-GTlTPZ4CYZDEetpFpWc';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF6anhqem9pdGtwb3lydmF6ZmxlIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjQ0Njg2MTMsImV4cCI6MTk4MDA0NDYxM30.-YXcZyjlSS51RFUvLqaaH6lUZ31UitcwsGaDmxSze_E';
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 /* Auth related functions */
@@ -31,19 +31,28 @@ export async function signOutUser() {
 
 export async function createTodo(todo) {
     // > Part A: Insert the todo in supabase, returns a single row
+    return await client.from('todos').insert(todo).single();
 }
 
 export async function getTodos() {
     // > Part B: Get all todos for this user from supabase
+    return await client.from('todos').select('*').order('created_at');
 }
 
 export async function completeTodo(id) {
     // > Part C: call update (set complete to true) for the todo that
     // matches the correct id. Returns a single record:
+    return await client
+        .from('todos')
+        .update({ complete: true })
+        .eq('id', id)
+        .single();
 }
 
 export async function deleteAllTodos() {
     const user = getUser();
+
+    return await client.from('todos').delete().eq('user_id', user.id);
 
     // > Part D: delete all todos for this user in supabase:
 
